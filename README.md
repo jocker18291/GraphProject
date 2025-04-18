@@ -26,3 +26,16 @@ Each combination of:
 is tested using **randomly 100 generated instances.**
 
 Execution times are measured and **averaged** to ensure statistically reliable performance comparisons.
+
+**Correctness Tests**
+
+Each algorithm is tested with **hand-crafted test cases** to verify correctness, including:
+* graphs with known shortest paths,
+* graphs with cycles,
+* graphs with negative weights (for Bellman-Ford).
+
+Assertions and/or expected results are included in unit test files.
+
+**Graph Visualization**
+
+To visualize the graphs and results of the algorithms, this project exports graphs to the **DOT file format** used by **Graphviz.**
