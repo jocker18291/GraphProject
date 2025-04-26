@@ -8,6 +8,6 @@ private:
 public:
     graphMatrix(int v) {
         vertices = v;
-        matrix.resize(vertices, std::vector<int>(vertices, 0));
+        matrix.resize(vertices, std::vector<int>(vertices, 0)); //vertices x vertices matrix filled with 0s
     }
 };
