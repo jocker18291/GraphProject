@@ -13,6 +13,7 @@ public:
     void printList() const;
     void BFS(int start) const;
     void Dijkstra(int start) const;
+    void BellmanFord(int start) const;
 };
 
 #endif
