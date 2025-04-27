@@ -11,6 +11,7 @@ public:
     graphList(int v);
     void addEdge(int src, int dest, int weight = 1);
     void printList() const;
+    void BFS(int start) const;
 };
 
 #endif
