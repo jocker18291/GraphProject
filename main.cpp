@@ -72,6 +72,9 @@ int main() {
         std::chrono::duration<double> elapsed2 = end2 - start2;
         totalTimeList += elapsed2.count();
     }
+
+    std::cout << "List: " << totalTimeList / 100 << std::endl;
+    std::cout << "Matrix: " << totalTimeMatrix / 100 << std::endl;
     
     return 0;
 }
