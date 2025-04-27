@@ -98,4 +98,28 @@ void graphList::BellmanFord(int start) const {
             }
         }
     }
+
+    bool hasNegativeCycle = false;
+    for (int u = 0; u < vertices; ++u) {
+        for(const auto& neighbor : adjList[u]) {
+            int v = neighbor.first;
+            int weight = neighbor.second;
+            if (distance[u] != std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                hasNegativeCycle = true;
+            }
+        }
+    }
+
+    if (hasNegativeCycle) {
+        std::cout << "Graph contains a negative weight cycle!\n";
+    } else {
+        std::cout << "Shortest distances from vertex " << start << ":\n";
+            for (int i = 0; i < vertices; ++i) {
+                if (distance[i] == std::numeric_limits<int>::max()) {
+                    std::cout << "Vertex " << i << ": unreachable\n";
+                } else {
+                    std::cout << "Vertex " << i << ": " << distance[i] << "\n";
+                }
+            }
+    }
 }
