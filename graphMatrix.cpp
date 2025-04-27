@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <limits>
 #include <vector>
 #include "graphMatrix.hpp"
 
@@ -43,4 +44,11 @@ void graphMatrix::BFS(int start) const {
         }
         std::cout << std::endl;
     }
+}
+
+void graphMatrix::Dijkstra(int start) const {
+    std::vector<int> distance(vertices, std::numeric_limits<int>::max());
+    distance[start] = 0;
+
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
 }
