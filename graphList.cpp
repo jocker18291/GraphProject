@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <queue>
 #include "graphList.hpp"
 
 graphList::graphList(int v) {
@@ -20,5 +21,21 @@ void graphList::printList() const {
             std::cout << "(" <<neighbor.first << ", " << neighbor.second << ")";
         }
         std::cout << std::endl;
+    }
+}
+
+void graphList::BFS(int start) const {
+    std::vector<bool> visited(vertices, false);
+    std::queue<int> q;
+
+    visited[start] = true;
+    q.push(start);
+
+    std::cout << "BFS starting from vertex " << start << ": ";
+
+    while(!q.empty()) {
+        int current = q.front();
+        q.pop();
+        std::cout << current << " ";
     }
 }
