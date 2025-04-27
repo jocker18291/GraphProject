@@ -78,3 +78,46 @@ void graphMatrix::Dijkstra(int start) const {
             }
         }
 }
+
+void graphMatrix::BellmanFord(int start) const {
+    std::vector<int> distance(vertices, std::numeric_limits<int>::max());
+    distance[start] = 0;
+
+    for(int i = 0; i < vertices - 1; ++i) {
+        for(int u = 0; u < vertices; ++u) {
+            for(int v = 0; v < vertices; ++v) {
+                if(matrix[u][v] != 0) {
+                    int weight = matrix[u][v];
+                    if(distance[u] != std::numeric_limits<int>::max() && distance[u] + weight < distance [v]) {
+                        distance[v] = distance[u] + weight;
+                    }
+                }
+            }
+        }
+    }
+
+    bool hasNegativeCycle = false;
+    for (int u = 0; u < vertices; ++u) {
+        for(int v = 0; v < vertices; ++v) {
+            if(matrix[u][v] != 0) {
+                int weight = matrix[u][v];
+                if(distance[u] != std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                    hasNegativeCycle = true;
+                }
+            }
+        }
+    }
+
+    if (hasNegativeCycle) {
+        std::cout << "Graph contains a negative weight cycle!\n";
+    } else {
+        std::cout << "Shortest distances from vertex " << start << ":\n";
+            for (int i = 0; i < vertices; ++i) {
+                if (distance[i] == std::numeric_limits<int>::max()) {
+                    std::cout << "Vertex " << i << ": unreachable\n";
+                } else {
+                    std::cout << "Vertex " << i << ": " << distance[i] << "\n";
+                }
+            }
+    }
+}
