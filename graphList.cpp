@@ -55,4 +55,29 @@ void graphList::Dijkstra(int start) const {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
 
     pq.push({0, start});
+
+    while(!pq.empty()) {
+        int currentDistance = pq.top().first;
+        int currentVertex = pq.top().second;
+        pq.pop();
+
+        for (const auto& neighbor : adjList[currentVertex]) {
+            int neighborVertex = neighbor.first;
+            int weight = neighbor.second;
+
+            if(distance[neighborVertex] > currentDistance + weight) {
+                distance[neighborVertex] = currentDistance + weight;
+                pq.push({distance[neighborVertex], neighborVertex});
+            }
+        }
+    }
+
+    std::cout << "Shortest distances from vertex " << start << ":\n";
+    for(int i = 0; i < vertices; ++i){
+        if(distance[i] == std::numeric_limits<int>::max()) {
+            std::cout << "Vertex " << i << ": unreachable\n";
+        } else {
+            std::cout << "Vertex " << i << ": " << distance[i] << "\n";
+        }
+    }
 }
