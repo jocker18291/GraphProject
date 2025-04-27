@@ -2,6 +2,7 @@
 #include <vector>
 #include <set>
 #include <random>
+#include <chrono>
 #include "graphList.hpp"
 #include "graphMatrix.hpp"
 
@@ -39,15 +40,38 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     return edges;
 }
 
-int main() {
-    graphMatrix gm(5);
-    gm.addEdge(0, 1, 2);
-    gm.addEdge(0, 4);
-    gm.printMatrix();
+int vertices = 10;
+int density = 25;
 
-    graphList gl(5);
-    gl.addEdge(0, 1, 2);
-    gl.addEdge(0, 4);
-    gl.printList();
+int main() {
+    double totalTimeList = 0.0;
+    double totalTimeMatrix = 0.0;
+
+    for(int i = 0; i < 100; ++i) {
+        auto edges = generateRandomEdges(vertices, density);
+
+        graphMatrix gm(vertices);
+        for(const auto& edge : edges) {
+            gm.addEdge(edge.u, edge.v, edge.weight);
+        }
+
+        graphList gl(vertices);
+        for(const auto& edge : edges) {
+            gl.addEdge(edge.u, edge.v, edge.weight);
+        }
+
+        auto start = std::chrono::high_resolution_clock::now();
+        gm.BFS(0);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+        totalTimeMatrix += elapsed.count();
+
+        auto start2 = std::chrono::high_resolution_clock::now();
+        gl.BFS(0);
+        auto end2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed2 = end2 - start2;
+        totalTimeList += elapsed2.count();
+    }
+    
     return 0;
 }
