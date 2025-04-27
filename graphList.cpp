@@ -37,5 +37,13 @@ void graphList::BFS(int start) const {
         int current = q.front();
         q.pop();
         std::cout << current << " ";
+        for(const auto& neighbor : adjList[current]){
+            int neighborVertex = neighbor.first;
+            if(!visited[neighborVertex]) {
+                visited[neighborVertex] = true;
+                q.push(neighborVertex);
+            }
+        }
     }
+    std::cout << std::endl;
 }
