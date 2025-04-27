@@ -82,3 +82,20 @@ void graphList::Dijkstra(int start) const {
         }
     }
 }
+
+void graphList::BellmanFord(int start) const {
+    std::vector<int> distance(vertices, std::numeric_limits<int>::max());
+    distance[start] = 0;
+
+    for(int i = 0; i < vertices - 1; ++i) {
+        for(int u = 0; u < vertices; ++u) {
+            for(const auto& neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+                if(distance[u] != std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                    distance[v] = distance[u] + weight;
+                }
+            }
+        }
+    }
+}
