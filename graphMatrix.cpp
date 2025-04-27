@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 #include "graphMatrix.hpp"
 
@@ -16,6 +17,29 @@ void graphMatrix::printMatrix() const {
     for(const auto& row : matrix) {
         for (int val : row) {
             std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void graphMatrix::BFS(int start) const {
+    std::vector<bool> visited(vertices, false);
+    std::queue<int> q;
+
+    visited[start] = true;
+    q.push(start);
+
+    std::cout << "BFS starting from vertex: " << start << std::endl;
+
+    while(!q.empty()) {
+        int current = q.front();
+        q.pop();
+        std::cout << current << " ";
+        for(int neighbor = 0; neighbor < vertices; neighbor++) {
+            if(matrix[current][neighbor] != 0 && !visited[neighbor]){
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
         }
         std::cout << std::endl;
     }
