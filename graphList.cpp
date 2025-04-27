@@ -47,3 +47,12 @@ void graphList::BFS(int start) const {
     }
     std::cout << std::endl;
 }
+
+void graphList::Dijkstra(int start) const {
+    std::vector<int> distance(vertices, std::numeric_limits<int>::max());
+    distance[start] = 0;
+
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
+
+    pq.push({0, start});
+}
