@@ -7,7 +7,7 @@ graphMatrix::graphMatrix(int v) {
     matrix.resize(vertices, std::vector<int>(vertices, 0)); //vertices x vertices matrix filled with 0s
 }
 
-void graphMatrix::addEdge(int src, int dest, int weight = 1) {
+void graphMatrix::addEdge(int src, int dest, int weight) {
     matrix[src][dest] = weight;
     matrix[dest][src] = weight; //for non-oriented graph
 }

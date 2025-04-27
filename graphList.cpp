@@ -8,7 +8,7 @@ graphList::graphList(int v) {
     adjList.resize(vertices);
 }
 
-void graphList::addEdge(int src, int dest, int weight = 1) {
+void graphList::addEdge(int src, int dest, int weight) {
     adjList[src].push_back({dest, weight});
     adjList[dest].push_back({src, weight});
 }
