@@ -20,7 +20,7 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distVertex(0, vertices - 1);
-    std::uniform_int_distribution<> distWeight(0, 10);
+    std::uniform_int_distribution<> distWeight(-10, 10);
 
     while(edges.size() < targetEdges) {
         int u = distVertex(gen);
@@ -40,8 +40,8 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     return edges;
 }
 
-int vertices = 10;
-int density = 25;
+int vertices = 500;
+int density = 100;
 
 int main() {
     double totalTimeList = 0.0;
@@ -61,20 +61,20 @@ int main() {
         }
 
         auto start = std::chrono::high_resolution_clock::now();
-        gm.BFS(0);
+        gm.BellmanFord(0);
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed = end - start;
         totalTimeMatrix += elapsed.count();
 
         auto start2 = std::chrono::high_resolution_clock::now();
-        gl.BFS(0);
+        gl.BellmanFord(0);
         auto end2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed2 = end2 - start2;
         totalTimeList += elapsed2.count();
     }
 
-    std::cout << "List: " << totalTimeList / 100 << std::endl;
-    std::cout << "Matrix: " << totalTimeMatrix / 100 << std::endl;
+    std::cout << "List," << vertices << ","<< totalTimeList / 100 << std::endl;
+    std::cout << "Matrix," << vertices << "," << totalTimeMatrix / 100 << std::endl;
     
     return 0;
 }

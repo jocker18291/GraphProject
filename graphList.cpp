@@ -32,12 +32,12 @@ void graphList::BFS(int start) const {
     visited[start] = true;
     q.push(start);
 
-    std::cout << "BFS starting from vertex " << start << ": ";
+    //std::cout << "BFS starting from vertex " << start << ": ";
 
     while(!q.empty()) {
         int current = q.front();
         q.pop();
-        std::cout << current << " ";
+        //std::cout << current << " ";
         for(const auto& neighbor : adjList[current]){
             int neighborVertex = neighbor.first;
             if(!visited[neighborVertex]) {
@@ -46,7 +46,7 @@ void graphList::BFS(int start) const {
             }
         }
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
 }
 
 void graphList::Dijkstra(int start) const {
@@ -73,14 +73,14 @@ void graphList::Dijkstra(int start) const {
         }
     }
 
-    std::cout << "Shortest distances from vertex " << start << ":\n";
-    for(int i = 0; i < vertices; ++i){
-        if(distance[i] == std::numeric_limits<int>::max()) {
-            std::cout << "Vertex " << i << ": unreachable\n";
-        } else {
-            std::cout << "Vertex " << i << ": " << distance[i] << "\n";
-        }
-    }
+    // std::cout << "Shortest distances from vertex " << start << ":\n";
+    // for(int i = 0; i < vertices; ++i){
+    //     if(distance[i] == std::numeric_limits<int>::max()) {
+    //         std::cout << "Vertex " << i << ": unreachable\n";
+    //     } else {
+    //         std::cout << "Vertex " << i << ": " << distance[i] << "\n";
+    //     }
+    // }
 }
 
 void graphList::BellmanFord(int start) const {
@@ -110,16 +110,16 @@ void graphList::BellmanFord(int start) const {
         }
     }
 
-    if (hasNegativeCycle) {
-        std::cout << "Graph contains a negative weight cycle!\n";
-    } else {
-        std::cout << "Shortest distances from vertex " << start << ":\n";
-            for (int i = 0; i < vertices; ++i) {
-                if (distance[i] == std::numeric_limits<int>::max()) {
-                    std::cout << "Vertex " << i << ": unreachable\n";
-                } else {
-                    std::cout << "Vertex " << i << ": " << distance[i] << "\n";
-                }
-            }
-    }
+    // if (hasNegativeCycle) {
+    //     std::cout << "Graph contains a negative weight cycle!\n";
+    // } else {
+    //     std::cout << "Shortest distances from vertex " << start << ":\n";
+    //         for (int i = 0; i < vertices; ++i) {
+    //             if (distance[i] == std::numeric_limits<int>::max()) {
+    //                 std::cout << "Vertex " << i << ": unreachable\n";
+    //             } else {
+    //                 std::cout << "Vertex " << i << ": " << distance[i] << "\n";
+    //             }
+    //         }
+    // }
 }
