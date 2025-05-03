@@ -49,7 +49,7 @@ void graphList::BFS(int start) const {
     //std::cout << std::endl;
 }
 
-void graphList::Dijkstra(int start) const {
+std::vector<int> graphList::Dijkstra(int start) const {
     std::vector<int> distance(vertices, std::numeric_limits<int>::max());
     distance[start] = 0;
 
@@ -73,6 +73,8 @@ void graphList::Dijkstra(int start) const {
         }
     }
 
+    return distance;
+
     // std::cout << "Shortest distances from vertex " << start << ":\n";
     // for(int i = 0; i < vertices; ++i){
     //     if(distance[i] == std::numeric_limits<int>::max()) {
@@ -83,7 +85,7 @@ void graphList::Dijkstra(int start) const {
     // }
 }
 
-void graphList::BellmanFord(int start) const {
+std::vector<int> graphList::BellmanFord(int start) const {
     std::vector<int> distance(vertices, std::numeric_limits<int>::max());
     distance[start] = 0;
 
@@ -109,6 +111,7 @@ void graphList::BellmanFord(int start) const {
             }
         }
     }
+    return distance;
 
     // if (hasNegativeCycle) {
     //     std::cout << "Graph contains a negative weight cycle!\n";

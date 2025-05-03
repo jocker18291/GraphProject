@@ -12,8 +12,8 @@ public:
     void addEdge(int src, int dest, int weight = 1);
     void printList() const;
     void BFS(int start) const;
-    void Dijkstra(int start) const;
-    void BellmanFord(int start) const;
+    std::vector<int> Dijkstra(int start) const;
+    std::vector<int> BellmanFord(int start) const;
 };
 
 #endif

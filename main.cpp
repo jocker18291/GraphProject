@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <fstream>
 #include <random>
 #include <chrono>
 #include "graphList.hpp"
@@ -20,7 +21,7 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distVertex(0, vertices - 1);
-    std::uniform_int_distribution<> distWeight(-10, 10);
+    std::uniform_int_distribution<> distWeight(1, 10);
 
     while(edges.size() < targetEdges) {
         int u = distVertex(gen);
@@ -40,8 +41,66 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     return edges;
 }
 
-int vertices = 500;
+void writeDot(const std::string &filename, int vertices, const std::vector<Edge> &edges) {
+    std::ofstream out(filename);
+    out << "graph G {\n";
+    out << " node [shape=circle];\n";
+
+    for(auto &e : edges) {
+        out << " " << e.u << " -- " << e.v << " [label=\"" << e.weight << "\"];\n";
+    }
+    out << "}\n";
+    out.close();
+}
+
+int vertices = 10;
 int density = 100;
+
+void verifyGraphList() {
+    graphList gl(vertices);
+    auto edges = generateRandomEdges(vertices, density);
+    for(const auto& edge : edges) {
+        gl.addEdge(edge.u, edge.v, edge.weight);
+    }
+    auto b = gl.BellmanFord(0);
+    auto d = gl.Dijkstra(0);
+
+    bool ok = true;
+    for(int i = 0; i < vertices; i++) {
+        if(b[i] != d[i]) {
+            ok = false;
+        }
+    }
+
+    if(ok) {
+        std::cout << "Perfect\n";
+    } else {
+        std::cout << "Not perfect...\n";
+    }
+}
+
+void verifyGraphMatrix() {
+    graphList gm(vertices);
+    auto edges = generateRandomEdges(vertices, density);
+    for(const auto& edge : edges) {
+        gm.addEdge(edge.u, edge.v, edge.weight);
+    }
+    auto b = gm.BellmanFord(0);
+    auto d = gm.Dijkstra(0);
+
+    bool ok = true;
+    for(int i = 0; i < vertices; i++) {
+        if(b[i] != d[i]) {
+            ok = false;
+        }
+    }
+
+    if(ok) {
+        std::cout << "Perfect\n";
+    } else {
+        std::cout << "Not perfect...\n";
+    }
+}
 
 int main() {
     double totalTimeList = 0.0;
@@ -76,5 +135,12 @@ int main() {
     std::cout << "List," << vertices << ","<< totalTimeList / 100 << std::endl;
     std::cout << "Matrix," << vertices << "," << totalTimeMatrix / 100 << std::endl;
     
+    // int v = 6;
+    // int d = 50.0;
+    // auto edges = generateRandomEdges(v, d);
+    // writeDot("graph.dot", v, edges);
+
+    verifyGraphList();
+    verifyGraphMatrix();
     return 0;
 }
