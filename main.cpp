@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <climits>
 #include <fstream>
 #include <random>
 #include <chrono>
@@ -42,18 +41,10 @@ std::vector<Edge> generateRandomEdges(int vertices, double density) {
     return edges;
 }
 
-void writeDot(const std::string &filename, int vertices, const std::vector<Edge> &edges, const std::vector<int>& distances) {
+void writeDot(const std::string &filename, int vertices, const std::vector<Edge> &edges) {
     std::ofstream out(filename);
     out << "graph G {\n";
     out << " node [shape=circle];\n";
-
-    for(int i = 0; i < vertices; i++) {
-        if(distances[i] == INT_MAX) {
-            out << " " << i << " [label=\"" << i << "\\nINF\", style=filled, fillcolor=red];\n";
-        } else {
-            out << " " << i << " [label=\"" << i << "\\n" << distances[i] << "\", style=filled, fillcolor=lightblue];\n";
-        }
-    }
 
     for(auto &e : edges) {
         out << " " << e.u << " -- " << e.v << " [label=\"" << e.weight << "\"];\n";
@@ -144,17 +135,12 @@ int main() {
     std::cout << "List," << vertices << ","<< totalTimeList / 100 << std::endl;
     std::cout << "Matrix," << vertices << "," << totalTimeMatrix / 100 << std::endl;
     
-    int v = 6;
-    int d = 50.0;
-    auto edges = generateRandomEdges(v, d);
-    graphMatrix gm(vertices);
-        for(const auto& edge : edges) {
-            gm.addEdge(edge.u, edge.v, edge.weight);
-        }
-    auto result = gm.Dijkstra(0);
-    writeDot("graph.dot", v, edges, result);
+    // int v = 6;
+    // int d = 50.0;
+    // auto edges = generateRandomEdges(v, d);
+    // writeDot("graph.dot", v, edges);
 
-    // verifyGraphList();
-    // verifyGraphMatrix();
+    verifyGraphList();
+    verifyGraphMatrix();
     return 0;
 }
